@@ -1,0 +1,10 @@
+response.status 400
+
+model {
+    String message
+}
+
+json {
+    message message
+    error 404
+}

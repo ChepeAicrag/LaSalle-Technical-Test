@@ -1,12 +1,19 @@
 import com.chepeaicrag.Student
 
 model {
-    List<Student> students
+    List<Student> students = []
+    Integer count = 0
 }
 
 json {
-    students(students) { Student student ->
+
+    students(students){ Student student ->
         id student.id
         name student.name
+        email student.email
+        matricula student.matricula
     }
+
+    count count
+
 }

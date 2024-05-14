@@ -1,0 +1,10 @@
+import com.chepeaicrag.Student
+
+model {
+    Student student
+}
+
+json {
+    student student
+    msg "Estudiante registrado satisfactoriamente"
+}

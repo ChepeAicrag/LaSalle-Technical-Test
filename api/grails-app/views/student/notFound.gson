@@ -1,0 +1,6 @@
+response.status 404
+
+json {
+    message "Student with id not Found"
+    error 404
+}

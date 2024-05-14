@@ -2,7 +2,7 @@ package com.chepeaicrag
 
 import grails.rest.Resource
 
-@Resource(uri='/students')
+//@Resource(uri='/students')
 class Student {
 
     String name

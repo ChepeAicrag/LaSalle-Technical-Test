@@ -1,51 +1,50 @@
 package com.chepeaicrag
 
-import grails.converters.JSON
 import grails.rest.RestfulController
-
+import org.springframework.http.HttpStatus
 import grails.gorm.transactions.*
 
 @Transactional
-class StudentController extends RestfulController<Student> {
+class StudentController extends  RestfulController<Student>{
 
-    StudentController(Class<Student> resource) {
-        super(resource)
+    StudentController() {
+        super(Student)
     }
 
     def index(Integer max) {
         def students = Student.list()
         def studentCount = Student.count()
-//        respond students, model: [count: studentCount]
-        respond model: [students: students]
+        respond students, model:[count: studentCount, students: students]
     }
 
     @Transactional
-    def save(){
+    def save(Student  student){
 
-        Student student = new Student(params)
-
-        if(Student.findByMatricula(student.matricula)){
-            render status: 400, contentType: 'text/plain', text: "El estudiante con matrícula ${student.matricula} ya está inscrito"
+        if(Student.findByMatricula(student.matricula) != null){
+            badRequestStudent("El estudiante con matricula ${student.matricula} ya está inscrito")
+            return
         }
 
         if(student.hasErrors()) {
-            respond student.errors, view:'create'
+            respond student.errors, view:'views/errors/_errors'
+            return
         }
-        else {
-            print(student.toString())
-            student.save();
-        }
+
+        student.save()
+//        respond student, model: [student: student]
+        render(view: 'save', model: [student: student])
     }
 
 
-    def show(Student student){
-        if(student == null) {
-            notFound()
-        }
-        else {
-            return [student: student]
-        }
-    }
+//    def show(){
+//        Student student = Student.findById(params.id)
+//        if(!student) {
+//            notFound()
+//            return
+//        }
+////        respond model: [student: student]
+//        render(view: 'show', model: [student: student])
+//    }
 
     @Transactional
     def update(Student student){
@@ -61,4 +60,15 @@ class StudentController extends RestfulController<Student> {
             }
         }
     }
+
+    def notFoundStudent(){
+        response.status = HttpStatus.NOT_FOUND.value()
+        render(view: 'notFound')
+    }
+
+    def badRequestStudent(String message){
+        response.status = HttpStatus.BAD_REQUEST.value()
+        render(view: 'badRequest', model: [message: message])
+    }
+
 }
