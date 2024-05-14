@@ -1,5 +1,6 @@
 package com.chepeaicrag
 
+import grails.plugins.mail.MailService
 import grails.rest.RestfulController
 import org.springframework.http.HttpStatus
 import grails.gorm.transactions.*
@@ -8,6 +9,9 @@ import grails.gorm.transactions.*
 class StudentController extends  RestfulController<Student>{
 
     static SEMESTERS_ALLOWS = [1]
+
+    PasswordGeneratorService passwordGeneratorService
+    MailService mailService
 
     StudentController() {
         super(Student)
@@ -38,7 +42,20 @@ class StudentController extends  RestfulController<Student>{
             return
         }
 
+        def passwords = passwordGeneratorService.generateRandomPassword(10)
+        student.password = passwords.encodedPassword
+
         Student saved = student.save()
+        String text = "Hola ${student.name}.\nTus credenciales son estas:\n Usuario: ${student.matricula}\nContraseña: ${passwords.password}"
+        def subjectEmail = 'Acceso al sistema'
+        def emailRecipt = student.email
+
+        mailService.sendMail {
+            to "${emailRecipt}"
+            subject "${subjectEmail}"
+            body "${text}"
+        }
+
         respond saved, model:[student: saved]
     }
 
