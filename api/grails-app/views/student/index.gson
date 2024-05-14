@@ -1,0 +1,12 @@
+import com.chepeaicrag.Student
+
+model {
+    List<Student> students
+}
+
+json {
+    students(students) { Student student ->
+        id student.id
+        name student.name
+    }
+}
