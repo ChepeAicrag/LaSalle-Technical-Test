@@ -7,6 +7,8 @@ import grails.gorm.transactions.*
 @Transactional
 class StudentController extends  RestfulController<Student>{
 
+    static SEMESTERS_ALLOWS = [1]
+
     StudentController() {
         super(Student)
     }
@@ -20,50 +22,24 @@ class StudentController extends  RestfulController<Student>{
     @Transactional
     def save(Student  student){
 
+        if(!SEMESTERS_ALLOWS.contains(student.semester)){
+            badRequestStudent("Solo se aceptan estudiantes de semestres ${SEMESTERS_ALLOWS}")
+            return
+        }
+
         if(Student.findByMatricula(student.matricula) != null){
             badRequestStudent("El estudiante con matricula ${student.matricula} ya está inscrito")
             return
         }
+
 
         if(student.hasErrors()) {
             respond student.errors, view:'views/errors/_errors'
             return
         }
 
-        student.save()
-//        respond student, model: [student: student]
-        render(view: 'save', model: [student: student])
-    }
-
-
-//    def show(){
-//        Student student = Student.findById(params.id)
-//        if(!student) {
-//            notFound()
-//            return
-//        }
-////        respond model: [student: student]
-//        render(view: 'show', model: [student: student])
-//    }
-
-    @Transactional
-    def update(Student student){
-        if(student == null) {
-            notFound()
-        }
-        else {
-            if(student.hasErrors()) {
-                respond student.errors, view:'edit'
-            }
-            else {
-                print(student.toString())
-            }
-        }
-    }
-
-    def notFoundStudent(){
-        response.status = HttpStatus.NOT_FOUND.value()
-        render(view: 'notFound')
+        Student saved = student.save()
+        respond saved, model:[student: saved]
     }
 
     def badRequestStudent(String message){

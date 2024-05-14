@@ -4,11 +4,4 @@ model {
     Student student
 }
 
-//json {
-//    name student.name
-//    email student.email
-//    matricula student.matricula
-//    level student.level
-//}
-
 json g.render(student)

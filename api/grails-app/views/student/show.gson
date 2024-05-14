@@ -1,10 +1,16 @@
 import com.chepeaicrag.Student
+response.status 200
 
 model {
     Student student
 }
 
 json {
-    student
+    student(student){ Student student ->
+            id student.id
+            name student.name
+            email student.email
+            matricula student.matricula
+    }
     msg "Estudiante obtenido satisfactoriamente"
 }

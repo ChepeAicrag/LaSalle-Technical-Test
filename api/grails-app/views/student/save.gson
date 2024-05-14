@@ -5,6 +5,11 @@ model {
 }
 
 json {
-    student student
+    student(student){ Student student ->
+        id student.id
+        name student.name
+        email student.email
+        matricula student.matricula
+    }
     msg "Estudiante registrado satisfactoriamente"
 }

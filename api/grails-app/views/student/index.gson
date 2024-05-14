@@ -6,14 +6,11 @@ model {
 }
 
 json {
-
     students(students){ Student student ->
         id student.id
         name student.name
         email student.email
         matricula student.matricula
     }
-
     count count
-
 }
