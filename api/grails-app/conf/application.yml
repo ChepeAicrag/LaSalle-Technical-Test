@@ -4,6 +4,25 @@ info:
     version: '@info.app.version@'
     grailsVersion: '@info.app.grailsVersion@'
 grails:
+  cors:
+    enabled: true
+
+  gsp:
+    templateEngines:
+      groovyPages:
+        class: org.grails.gsp.GroovyPagesTemplateEngine
+
+  mail:
+    host: "smtp.gmail.com"
+    port: 465
+    username: "isbito18@gmail.com"
+    password: "fwldqtyvkiyzpdxz"
+    props:
+        mail.smtp.auth: true
+        mail.smtp.socketFactory.port: 465
+        mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+        mail.smtp.socketFactory.fallback: false
+
   mime:
     disable:
       accept:
@@ -30,11 +49,14 @@ grails:
       rss: application/rss+xml
       text: text/plain
       all: '*/*'
+
   controllers:
     defaultScope: singleton
+
   views:
     default:
       codec: html
+
 dataSource:
   url: jdbc:postgresql://localhost:5432/postgres
   driverClassName: org.postgresql.Driver
@@ -43,6 +65,7 @@ dataSource:
   pooled: true
   jmxExport: true
   dbCreate: update
+
 hibernate:
   cache:
     queries: false
