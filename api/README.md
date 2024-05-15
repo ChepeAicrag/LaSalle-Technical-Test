@@ -1,15 +1,30 @@
-## Grails 6.2.0 Documentation
+# API
 
-- [User Guide](https://docs.grails.org/6.2.0/guide/index.html)
-- [API Reference](https://docs.grails.org/6.2.0/api/index.html)
-- [Grails Guides](https://guides.grails.org/index.html)
----
+La api cuenta con 3 sencillos endpoints para lograr su funcionamiento. 
 
-## Feature testcontainers documentation
+**NOTA**: Considerando el host http://localhost:8080/
 
-- [https://www.testcontainers.org/](https://www.testcontainers.org/)
+1. Obtener los estudiantes registrados
+   ```curl
+   curl --location 'http://localhost:8080/student'
+   ```
+   Ejemplo de response
+   
+2. Registrar estudiante
+   ```curl
+   curl --location 'http://localhost:8080/student' \
+   --header 'Content-Type: application/json' \
+   --data-raw '{
+    "email": "chepeaicrag12@gmail.com",
+    "name": "Angel Garcia",
+    "matricula": "123456705",
+    "semester": 1,
+    "level": "Doctorado",
+    "career": "Comunicación"
+   }'
+   ```
 
-## Feature views-json documentation
-
-- [Grails JSON Views documentation](https://views.grails.org/)
-
+3. Obtener los niveles academicos disponibles
+   ```curl
+   curl --location 'http://localhost:8080/academicLevel'
+   ```
