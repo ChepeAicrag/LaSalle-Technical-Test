@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StudentsService } from '../services/students.service';
-import { PATHS_VIEW } from '../constants/paths.constants';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { PATHS_VIEW } from '../constants/paths.constants';
+import { StudentsService } from '../services/students.service';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
   form: FormGroup;
-  academicLevels = ['Bachillerato', 'Licenciatura', 'Maestría', 'Doctorado'];
+
+  options: { [key: string]: any } = {};
+  academicLevels: string[] = [];
+
+  loading: boolean = false;
+
   undergraduatePrograms = ['Enfermeria', 'Software', 'Arquitectura'];
   masterPrograms = ['Fiscal', 'Educación'];
   doctoralPrograms = ['Comunicación', 'Gastronomía'];
-  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,13 +38,7 @@ export class FormComponent {
     });
 
     this.form.get('level')?.valueChanges.subscribe((level: string) => {
-      if (level === 'Licenciatura') {
-        this.form.get('career')?.setValidators(Validators.required);
-        this.form.get('career')?.setValue('');
-      } else if (level === 'Maestría') {
-        this.form.get('career')?.setValidators(Validators.required);
-        this.form.get('career')?.setValue('');
-      } else if (level === 'Doctorado') {
+      if (Object.keys(this.options).includes(level)) {
         this.form.get('career')?.setValidators(Validators.required);
         this.form.get('career')?.setValue('');
       } else {
@@ -47,6 +46,16 @@ export class FormComponent {
         this.form.get('career')?.setValue('');
       }
       this.form.get('career')?.updateValueAndValidity();
+    });
+  }
+  ngOnInit(): void {
+    this.student.getAcademicLevels().subscribe({
+      error: (err) => console.log(err),
+      next: (data) => {
+        const response = JSON.parse(JSON.stringify(data));
+        this.academicLevels = Object.keys(response);
+        this.options = { ...response };
+      },
     });
   }
 

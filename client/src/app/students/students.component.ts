@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentsService } from '../services/students.service';
 import { Router } from '@angular/router';
 
 import { PATHS_VIEW } from '../constants/paths.constants';
+import { StudentsService } from '../services/students.service';
 
 @Component({
   selector: 'app-students',
