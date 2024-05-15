@@ -1,15 +1,18 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: "Roboto", sans-serif;
   height: 100vh;
+  min-width: 400px;
+  min-height: 600px;
 }
 
 .form {
   width: 100%;
   padding: 20px;
-  margin: 100px;
+  margin: 50px 100px 100px 100px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
@@ -55,18 +58,17 @@ label {
 }
 
 .link-view {
+  width: 100%;
   display: flex;
-  position: absolute;
-  top: 60px;
-  left: 30px;
   font-weight: bolder;
+  min-width: 450px;
+  max-width: 650px;
 }
 
 .btn-link {
   display: block;
-  width: 100%;
+  width: 30%;
   padding: 10px;
-  margin-left: 5rem;
   border: none;
   border-radius: 5px;
   background-color: #007bff;
@@ -79,20 +81,6 @@ label {
     overflow-x: auto;
     display: block;
   }
-
-  .link-view {
-    display: flex;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    left: 0;
-  }
-
-  .btn-link {
-    padding: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
 }
 
 .mat-spinner-container {
@@ -101,4 +89,10 @@ label {
   align-items: center;
   width: 30px;
   height: 30px;
+}
+
+.center-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

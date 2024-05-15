@@ -57,17 +57,22 @@ export class FormComponent {
         window.alert(response?.message ?? 'Error al registrar usuario');
         break;
       case 422:
-        window.alert('Error al enviar datos');
         console.log(response);
+        const total = response['total'] ?? 0;
+        if (total == 0) {
+          const message = response['message'];
+          window.alert(`Error en los datos ${message}`);
+        } else {
+          const message = response['_embedded']['errors'][0]['message'];
+          window.alert(`Error en los datos ${message}`);
+        }
         break;
       default:
         window.alert('Error al registrar usuario. Notifique al administrador');
     }
   }
 
-  handleSuccessfullyResponse(resp: Object) {
-    console.log('esta es la respuesta ', resp);
-  }
+  handleSuccessfullyResponse(resp: Object) {}
 
   submit() {
     console.log('Submit', this.form.value);
@@ -83,12 +88,15 @@ export class FormComponent {
             window.alert('Se ha registrado con éxito el estudiante'),
         })
         .add(() => {
-          console.log('Loading in false');
           this.loading = false;
         });
     } else {
       window.alert('El formulario no está validado');
     }
+  }
+
+  clearForm() {
+    this.form.reset();
   }
 
   goToStudents() {

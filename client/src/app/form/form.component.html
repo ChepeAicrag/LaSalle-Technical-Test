@@ -1,7 +1,13 @@
-<div class="link-view">
-  <button class="btn-link" (click)="goToStudents()">Ver registros</button>
-</div>
 <div class="container">
+
+  <div class="center-div">
+    <h1>Formulario para registro de estudiantes</h1>
+  </div>
+
+  <div class="link-view">
+    <button class="btn-link" (click)="goToStudents()">Ver registros</button>
+  </div>
+
   <form [formGroup]="form" (ngSubmit)="submit()" class="form">
     <div class="form-group">
       <label for="name">Nombre completo:</label>
@@ -59,7 +65,7 @@
       <button type="submit" [disabled]="!form.valid" class="btn">Enviar</button>
     </div>
 
-    <div *ngIf="loading" style="display: flex; align-items: center; justify-content: center;">
+    <div *ngIf="loading" class="center-div">
       <div class="mat-spinner-container">
         <mat-progress-spinner color="primary" mode="indeterminate">
         </mat-progress-spinner>
