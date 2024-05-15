@@ -1,0 +1,69 @@
+<div class="link-view">
+  <button class="btn-link" (click)="goToStudents()">Ver registros</button>
+</div>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+    <div class="form-group">
+      <label for="name">Nombre completo:</label>
+      <input type="text" id="name" formControlName="name" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="email">Correo:</label>
+      <input type="email" id="email" formControlName="email" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="semester">Semestre:</label>
+      <input maxlength="1" type="number" id="semester" formControlName="semester" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="matricula">Matrícula:</label>
+      <input minlength="9" maxlength="9" type="text" id="matricula" formControlName="matricula" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="level">Nivel académico:</label>
+      <select id="level" formControlName="level" class="form-control">
+        <option value="" disabled selected>
+          Selecciona un nivel académico
+        </option>
+        <option *ngFor="let academicLevel of academicLevels" [value]="academicLevel">
+          {{ academicLevel }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="
+        form.get('level')?.value === 'Licenciatura' ||
+        form.get('level')?.value === 'Doctorado' ||
+        form.get('level')?.value === 'Maestría'
+      " class="form-group">
+      <label for="career">Carrera:</label>
+      <select id="career" formControlName="career" class="form-control">
+        <option value="" disabled selected>Selecciona una carrera</option>
+        <ng-container *ngIf="form.get('level')?.value === 'Licenciatura'">
+          <option *ngFor="let undergraduateProgram of undergraduatePrograms" [value]="undergraduateProgram">
+            {{ undergraduateProgram }}
+          </option>
+        </ng-container>
+        <ng-container *ngIf="form.get('level')?.value === 'Doctorado'">
+          <option *ngFor="let doctoralProgram of doctoralPrograms" [value]="doctoralProgram">
+            {{ doctoralProgram }}
+          </option>
+        </ng-container>
+        <ng-container *ngIf="form.get('level')?.value === 'Maestría'">
+          <option *ngFor="let masterProgram of masterPrograms" [value]="masterProgram">
+            {{ masterProgram }}
+          </option>
+        </ng-container>
+      </select>
+    </div>
+    <div *ngIf="!loading">
+      <button type="submit" [disabled]="!form.valid" class="btn">Enviar</button>
+    </div>
+
+    <div *ngIf="loading" style="display: flex; align-items: center; justify-content: center;">
+      <div class="mat-spinner-container">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </form>
+</div>

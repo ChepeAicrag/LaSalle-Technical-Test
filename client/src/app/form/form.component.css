@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+}
+
+.form {
+  width: 100%;
+  padding: 20px;
+  margin: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  min-width: 400px;
+  max-width: 600px;
+  min-height: 400px;
+  max-height: 600px;
+}
+
+.form-group {
+  margin: 25px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn:disabled {
+  background-color: #ccc;
+}
+
+.link-view {
+  display: flex;
+  position: absolute;
+  top: 60px;
+  left: 30px;
+  font-weight: bolder;
+}
+
+.btn-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-left: 5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  form {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .link-view {
+    display: flex;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    left: 0;
+  }
+
+  .btn-link {
+    padding: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.mat-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}

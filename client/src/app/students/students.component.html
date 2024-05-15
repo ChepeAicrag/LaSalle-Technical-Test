@@ -1,0 +1,25 @@
+<div class="link-view">
+  <button class="btn-link" (click)="goToRegister()">Registrar estudiante</button>
+</div>
+
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Matricula</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.matricula }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
