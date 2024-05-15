@@ -11,6 +11,9 @@ json {
         name student.name
         email student.email
         matricula student.matricula
+        level student.level
+        career student.career
+        semester student.semester
     }
     count count
 }

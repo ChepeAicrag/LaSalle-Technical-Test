@@ -8,7 +8,7 @@ import grails.gorm.transactions.*
 @Transactional
 class StudentController extends  RestfulController<Student>{
 
-    static SEMESTERS_ALLOWS = [1]
+    static List<Integer> SEMESTERS_ALLOWS = [1]
 
     PasswordGeneratorService passwordGeneratorService
     MailService mailService
@@ -64,4 +64,7 @@ class StudentController extends  RestfulController<Student>{
         render(view: 'badRequest', model: [message: message])
     }
 
+    def levels(){
+        return ['Licenciatura', 'Maestría', 'Doctorado']
+    }
 }
